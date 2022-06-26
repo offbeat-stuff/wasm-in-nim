@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Yokai</title>
+        <meta charset="utf-8" />
+        <title></title>
+        <meta name="description" content="" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1,user-scalable=no"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body onload="loadEruda()">
+	<canvas id="canvas"/>
+        <script type="text/javascript">
+            var elem = document.documentElement;
+            function init() {
+                var scripts = ["main.js"];
+                var loadFun = function () {
+                    scripts = scripts.slice(1);
+                    if (scripts[0]) {
+                        createScript(scripts[0], loadFun);
+                    }
+                };
+                createScript(scripts[0], loadFun);
+                elem.addEventListener("dblclick", function (e) {
+                    openFullscreen();
+                });
+            }
+
+            /* View in fullscreen */
+            function openFullscreen() {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    /* Chrome, Safari and Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
+            }
+
+            /* Close fullscreen */
+            function closeFullscreen() {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    /* Firefox */
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    /* Chrome, Safari and Opera */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    /* IE/Edge */
+                    document.msExitFullscreen();
+                }
+            }
+            function loadEruda() {
+                var script = document.createElement("script");
+                script.src = "//cdn.jsdelivr.net/npm/eruda";
+                document.body.appendChild(script);
+                script.onload = function () {
+                    eruda.init();
+                    init();
+                };
+            }
+            function createScript(src, onload) {
+                var _script = document.createElement("script");
+                _script.src = src;
+                _script.onload = onload;
+                _script.type = "module";
+                document.body.appendChild(_script);
+            }
+        </script>
+    </body>
+</html>
