@@ -58,6 +58,7 @@ async function init() {
           wasi_snapshot_preview1: wasi
         });
   console.log(instance.exports);
+  console.log(instance.exports.NimMain)
   console.log(instance.exports.add(1,2));
 }
 
